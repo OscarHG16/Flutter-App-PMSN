@@ -1,17 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:pmsn20252/models/player.dart';
+import 'package:pmsn20252/data/players_data.dart';
 
 class PlayersSCreen extends StatelessWidget {
   PlayersSCreen({super.key});
-
-  final List<Player> players = [
-    Player(
-      name: "Lionel Messi",
-      position: "Delantero",
-      imageUrl:
-          "https://www.pngplay.com/wp-content/uploads/13/Messi-Transparent-PNG.png",
-    ),
-  ];
 
   @override
   Widget build(BuildContext context) {
@@ -42,77 +33,61 @@ class PlayersSCreen extends StatelessWidget {
               padding: const EdgeInsets.all(16),
               itemCount: players.length, // Número de jugadores según la lista
               itemBuilder: (context, index) {
-                final player =
-                    players[index]; // Obtener el jugador actual según el índice
-                // Variación de inclinación y desplazamiento según el índice
-                final double rotationAngle = -0.05 + index * 0.01; // radianes
-                final double translateX =
-                    -10.0 * index; // desplazamiento horizontal
+                final player = players[index];
+                final double rotationAngle =
+                    -0.05 + index * 0.01; // inclinación ligera
 
-                return Transform.translate(
-                  offset: Offset(translateX, 0),
-                  child: Transform.rotate(
-                    angle: rotationAngle,
-                    child: Container(
-                      margin: const EdgeInsets.symmetric(vertical: 16),
-                      padding: const EdgeInsets.all(
-                        20,
-                      ), // más aire dentro de la card
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(
-                          0.25,
-                        ), // un poquito más sólido
-                        borderRadius: BorderRadius.circular(
-                          24,
-                        ), // bordes más suaves
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(
-                              0.2,
-                            ), // sombra más sutil
-                            blurRadius: 12,
-                            offset: const Offset(0, 6),
+                return Transform.rotate(
+                  angle: rotationAngle,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(vertical: 16),
+                    padding: const EdgeInsets.all(20),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.25),
+                      borderRadius: BorderRadius.circular(24),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          blurRadius: 12,
+                          offset: const Offset(0, 6),
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(16),
+                          child: Image.network(
+                            player.imageUrl,
+                            width: 90,
+                            height: 90,
+                            fit: BoxFit.cover,
                           ),
-                        ],
-                      ),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          // Imagen del jugador
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(16),
-                            child: Image.network(
-                              player.imageUrl,
-                              width: 90,
-                              height: 90,
-                              fit: BoxFit.cover,
+                        ),
+                        const SizedBox(width: 20),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              player.name,
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                          ),
-                          const SizedBox(width: 20),
-                          // Texto
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                player.name,
-                                style: const TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 20, // un poquito más grande
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            const SizedBox(height: 8),
+                            Text(
+                              player.position,
+                              style: const TextStyle(
+                                color: Colors.white70,
+                                fontSize: 16,
                               ),
-                              const SizedBox(height: 8),
-                              Text(
-                                player.position,
-                                style: const TextStyle(
-                                  color: Colors.white70,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                            ),
+                          ],
+                        ),
+                      ],
                     ),
                   ),
                 );
