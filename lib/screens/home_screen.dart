@@ -69,6 +69,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 );
               },
             ),
+            IconButton(
+              icon: const Icon(Icons.sports_soccer, color: Colors.white),
+              onPressed: (){
+                Navigator.pushNamed(context, "/players");
+              },
+            ),
           ],
         ),
       ),

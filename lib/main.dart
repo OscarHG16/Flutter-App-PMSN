@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pmsn20252/screens/home_screen.dart';
 import 'package:pmsn20252/screens/login_screen.dart';
+import 'package:pmsn20252/screens/players_screen.dart';
 import 'package:pmsn20252/utils/theme_app.dart';
 import 'package:pmsn20252/utils/value_listener.dart'; // Agregar esta importación
 
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget { // Cambiado a StatelessWidget
         return MaterialApp(
           theme: value ? ThemeApp.darkTheme() : ThemeApp.lightTheme(), // Aquí aplicamos el tema según el valor de isDark es un if pero con operadores ternarios, en caso de tener mas temas podremos usar switch
           routes: {
-            "/home": (context) => HomeScreen() // Ruta para HomeScreen
+            "/home": (context) => HomeScreen(), // Ruta para HomeScreen
+            "/players": (context) => PlayersSCreen(), // Ruta para PlayersScreen
           },
           debugShowCheckedModeBanner: false,
           title: "Material App",
