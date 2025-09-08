@@ -18,7 +18,7 @@ class AttributePainter extends CustomPainter {
   }) {
     // Inicialización de los pinceles para dibujar
     bgPaint = Paint()..color = Colors.white.withOpacity(0.25);
-    strokeBgPaint = Paint()..color = const Color.fromARGB(255, 16, 82, 136);
+    strokeBgPaint = Paint()..color = Colors.blueAccent;
     strokeFilledPaint = Paint()
       ..color = const Color.fromARGB(255, 190, 67, 67)
       ..style = PaintingStyle.stroke

@@ -104,32 +104,39 @@ class PlayersSCreen extends StatelessWidget {
                         alignment: Alignment.centerLeft,
                         child: Transform.translate(
                           offset: const Offset(-30, 0),
-                          child: Image.network(
-                            player.imageUrl,
-                            width: rowHeight,
-                            height: rowHeight,
-                            fit: BoxFit.contain,
+                          child: Hero(
+                            tag: player.name, //Usamos el nombre del jugador como tag unico
+                            child: Image.network(
+                              player.imageUrl,
+                              width: rowHeight,
+                              height: rowHeight,
+                              fit: BoxFit.contain,
+                            ),
                           ),
                         ),
                       ),
-                      Align( // Atributos del jugador
+                      Align(
+                        // Atributos del jugador
                         alignment: Alignment.centerRight,
                         child: Container(
-                          margin: const EdgeInsets.only(right: 45),
+                          margin: const EdgeInsets.only(right: 33),
                           padding: const EdgeInsets.symmetric(vertical: 20),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               AttributeWidget(
                                 progress: player.velocidad,
-                                size:60, // Tamaño ajustado para caber en la card
+                                size:
+                                    60, // Tamaño ajustado para caber en la card
                                 child: const Icon(
                                   Icons.speed,
                                   color: Colors.white,
                                   size: 25, //tamalo del icono
                                 ),
                               ),
-                              const SizedBox(height: 10,), // Espacio entre atributos
+                              const SizedBox(
+                                height: 10,
+                              ), // Espacio entre atributos
                               AttributeWidget(
                                 progress: player.disparo,
                                 size: 60,
@@ -139,7 +146,9 @@ class PlayersSCreen extends StatelessWidget {
                                   size: 25, //tamalo del icono
                                 ),
                               ),
-                              const SizedBox(height: 10), // Espacio entre atributos
+                              const SizedBox(
+                                height: 10,
+                              ), // Espacio entre atributos
                               AttributeWidget(
                                 progress: player.pase,
                                 size: 60,
@@ -147,6 +156,42 @@ class PlayersSCreen extends StatelessWidget {
                                   Icons.swap_horiz,
                                   color: Colors.white,
                                   size: 25, //tamalo del icono
+                                ),
+                              ),
+                              //Definimos el boton de ver detalles del jugador
+                              const SizedBox(height: 12),
+                              SizedBox(
+                                height: 35,
+                                width: 105,
+                                child: OutlinedButton(
+                                  onPressed: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/player_details',
+                                      arguments: player,
+                                    );
+                                  },
+                                  style: OutlinedButton.styleFrom(
+                                    side: const BorderSide(
+                                      color: Colors.white,
+                                      width: 1,
+                                    ),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: 16,
+                                      vertical: 0,
+                                    ),
+                                  ),
+                                  child: const Text(
+                                    "See Details",
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ],

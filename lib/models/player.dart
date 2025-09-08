@@ -5,6 +5,7 @@ class Player {
   final double velocidad;
   final double disparo;
   final double pase;
+  final String description;
 
   Player(
   {
@@ -14,6 +15,7 @@ class Player {
     required this.velocidad,
     required this.disparo,
     required this.pase,
+    required this.description,
   }
   );
 }

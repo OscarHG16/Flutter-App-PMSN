@@ -9,6 +9,7 @@ final List<Player> players = [
       velocidad: 93,
       disparo: 96,
       pase: 93,
+      description: "El mejor jugador de la historia y del FC Barcelona, Messi es un genio del fútbol, conocido por su visión, regate, precisión en el pase y capacidad goleadora. Durante su etapa en el club (2004-2021), ganó 10 Ligas, 4 Champions y 7 Balones de Oro, dejando un legado imborrable."
     ),
     Player(
       name: "Lamine Yamal",
@@ -18,6 +19,7 @@ final List<Player> players = [
       velocidad: 93,
       disparo: 86,
       pase: 88,
+      description: "Joven promesa de La Masia, Yamal es un extremo derecho explosivo, con gran técnica, velocidad y desborde. A sus 18 años, ya es titular habitual y una de las mayores esperanzas del Barça, destacando por su descaro y talento en el uno contra uno."
     ),
     Player(
       name: "Robert Lewandowski",
@@ -27,6 +29,7 @@ final List<Player> players = [
       velocidad: 79,
       disparo: 92,
       pase: 78,
+      description: "Delantero polaco y uno de los mejores goleadores del mundo, llegó al Barça en 2022. Su olfato goleador, posicionamiento y remate lo convierten en una pieza clave, aportando experiencia y goles decisivos en La Liga y competiciones europeas."
     ),
     Player(
       name: "Pedri González",
@@ -36,5 +39,6 @@ final List<Player> players = [
       velocidad: 84,
       disparo: 83,
       pase: 90,
+      description: "Centrocampista canario de clase mundial, conocido por su inteligencia táctica, control del balón y visión de juego. A sus 22 años, es el motor del mediocampo del Barcelona, comparado con Iniesta por su elegancia y capacidad para manejar el ritmo del partido."
     ),
   ];
