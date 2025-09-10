@@ -41,4 +41,34 @@ final List<Player> players = [
       pase: 90,
       description: "Centrocampista canario de clase mundial, conocido por su inteligencia táctica, control del balón y visión de juego. A sus 22 años, es el motor del mediocampo del Barcelona, comparado con Iniesta por su elegancia y capacidad para manejar el ritmo del partido."
     ),
+    Player(
+      name: "Fermin López",
+      position: "Centrocampista",
+      imageUrl:
+          "https://assets.laliga.com/squad/2025/t178/p551086/512x556/p551086_t178_2025_1_001_000.png",
+      velocidad: 82,
+      disparo: 85,
+      pase: 80,
+      description: "Joven talento de La Masia, Fermin es un centrocampista versátil, con gran técnica y visión de juego. A sus 19 años, ya ha debutado con el primer equipo, destacando por su capacidad para distribuir el balón y su inteligencia táctica."
+    ),
+    Player(
+      name: "Raphinha Dias",
+      position: "Extremo Izquierdo",
+      imageUrl:
+          "https://i.namu.wiki/i/lkQEjJNpNl5aTe1BpngqZUOAtkm5L4BlMd2lqY8ujSO8X1mHMob0jWTExe3ftJw3roB87nW01kAEaNz2hgA3vQ.webp",
+      velocidad: 90,
+      disparo: 86,
+      pase: 86,
+      description: "Extremo brasileño conocido por su velocidad, regate y capacidad para crear oportunidades de gol. Desde su llegada al Barça en 2022, se ha convertido en un jugador clave, aportando desequilibrio y asistencias desde la banda izquierda."
+    ),
+    Player(
+      name: "Frenkie de Jong",
+      position: "Centrocampista",
+      imageUrl:
+          "https://i.namu.wiki/i/La-LE7HqOlJjvODp9tZT_wDBd3k6DddcnB2eRv3qzJQRw1h_u1Z72WEoATwn6fWm4yGhXYK7XNEvgP3ZgGJsJA.webp",
+      velocidad: 83,
+      disparo: 82,
+      pase: 89,
+      description: "Centrocampista neerlandés, pieza fundamental en el mediocampo del Barça. Destaca por su capacidad para recuperar balones, su visión de juego y su habilidad para iniciar jugadas ofensivas, siendo un jugador completo y versátil."
+    ),
   ];
