@@ -71,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       onPressed: () {
                         isValidating = true;
                         setState(() {});
-                        Future.delayed(Duration(milliseconds: 3000)).then(
+                        Future.delayed(Duration(milliseconds: 2000)).then(
                           (value) => Navigator.pushNamed(
                             context,
                             "/home",
@@ -84,6 +84,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         Icons.login,
                       ), // Corregido: así es como se define un icono
                     ),
+                    TextButton(
+                      onPressed: (){
+                        Navigator.pushNamed(context, "/register"); //Al presionar el boton nos manda a la pantalla de registro
+                      },
+                      child: const Text("¿No tienes cuenta?, Registrate"),
+                      ),
                   ],
                 ),
               ),

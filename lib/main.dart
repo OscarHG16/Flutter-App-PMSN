@@ -3,6 +3,7 @@ import 'package:pmsn20252/screens/home_screen.dart';
 import 'package:pmsn20252/screens/login_screen.dart';
 import 'package:pmsn20252/screens/player_details_screen.dart';
 import 'package:pmsn20252/screens/players_screen.dart';
+import 'package:pmsn20252/screens/register_screen.dart';
 import 'package:pmsn20252/utils/theme_app.dart';
 import 'package:pmsn20252/utils/value_listener.dart'; // Agregar esta importación
 
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget { // Cambiado a StatelessWidget
             "/home": (context) => HomeScreen(), // Ruta para HomeScreen
             "/players": (context) => PlayersSCreen(), // Ruta para PlayersScreen
             "/player_details": (context) => PlayerDetailScreen(), // Ruta para PlayerDetailsScreen
+            "/register": (context) => RegisterScreen(),
           },
           debugShowCheckedModeBanner: false,
           title: "Material App",
