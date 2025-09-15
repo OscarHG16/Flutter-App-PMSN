@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget { // Cambiado a StatelessWidget
         return MaterialApp(
           theme: value ? ThemeApp.darkTheme() : ThemeApp.lightTheme(), // Aquí aplicamos el tema según el valor de isDark es un if pero con operadores ternarios, en caso de tener mas temas podremos usar switch
           routes: {
+            "/login": (context) => LoginScreen(),
             "/home": (context) => HomeScreen(), // Ruta para HomeScreen
             "/players": (context) => PlayersSCreen(), // Ruta para PlayersScreen
             "/player_details": (context) => PlayerDetailScreen(), // Ruta para PlayerDetailsScreen
