@@ -54,11 +54,11 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             Positioned(
-              bottom: 80,
+              bottom: 50,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                width: MediaQuery.of(context).size.width,
-                height: MediaQuery.of(context).size.height * 0.2,
+                width: MediaQuery.of(context).size.width ,
+                height: MediaQuery.of(context).size.height * 0.23,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(30),
@@ -67,29 +67,72 @@ class _LoginScreenState extends State<LoginScreen> {
                   children: [
                     txtUser,
                     txtPwd,
-                    IconButton(
-                      onPressed: () {
-                        isValidating = true;
-                        setState(() {});
-                        Future.delayed(Duration(milliseconds: 2000)).then(
-                          (value) => Navigator.pushNamed(
-                            context,
-                            "/home",
-                          ), //se usa para navegar entre pantallas con el nombre de las rutas
-                        );
-                        // Aquí puedes agregar la lógica del login
-                        print('Botón presionado');
-                      },
-                      icon: Icon(
-                        Icons.login,
-                      ), // Corregido: así es como se define un icono
+                    const SizedBox(
+                      height: 10,
                     ),
-                    TextButton(
-                      onPressed: (){
-                        Navigator.pushNamed(context, "/register"); //Al presionar el boton nos manda a la pantalla de registro
-                      },
-                      child: const Text("¿No tienes cuenta?, Registrate"),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color.fromARGB(255, 158, 27, 27),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            30,
+                          ), // Bordes redondeados
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 100,
+                          vertical: 13,
+                        ),
                       ),
+                      onPressed: () {
+                        setState(() {
+                          isValidating = true;
+                        });
+                        Future.delayed(const Duration(milliseconds: 2000)).then(
+                          (value) => Navigator.pushNamed(context, "/home"),
+                        );
+                      },
+                      child: const Text(
+                        "Iniciar Sesión",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold
+                        ),
+                       ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        foregroundColor: Colors.white,
+                        backgroundColor: const Color.fromARGB(255, 24, 27, 192),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(
+                            30,
+                          ), // Bordes redondeados
+                        ),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 100,
+                          vertical: 13,
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          isValidating = true;
+                        });
+                        Future.delayed(const Duration(milliseconds: 2000)).then(
+                          (value) => Navigator.pushNamed(context, "/register"),
+                        );
+                      },
+                      child: const Text(
+                        "Registrarse!",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold
+                        ),
+                       ),
+                    ),
                   ],
                 ),
               ),
@@ -98,8 +141,9 @@ class _LoginScreenState extends State<LoginScreen> {
               top: 300,
               child: isValidating
                   ? Lottie.asset(
-                      'assets/Loading 40 _ Paperplane.json',
+                      'assets/Insider-loading.json',
                       height: 330,
+                      width: 430
                     )
                   : Container(),
             ),
