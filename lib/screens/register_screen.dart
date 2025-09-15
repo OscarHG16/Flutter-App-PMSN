@@ -1,4 +1,6 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -10,6 +12,42 @@ class RegisterScreen extends StatefulWidget {
 class _RegisterScreenState extends State<RegisterScreen> {
   Color barcaBlue = Color.fromARGB(255, 15, 30, 85);
   bool isValidating = false;
+
+  final _formKey = GlobalKey<FormState>();
+
+  File? avatar; // Para guardar la imagen seleccionada
+  final ImagePicker picker = ImagePicker();
+
+  //METODOS
+  Future<void> pickImage(ImageSource source) async {
+    final XFile? pickedFile = await picker.pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        avatar = File(pickedFile.path);
+      });
+    }
+  }
+
+
+  //Funcion para el estilo de los campos y no estar repitiendo en cada uno el mismo estilo solo lo mandamos a llamar y le pasamos el parametro del texto que queremos que se visualize
+  InputDecoration buildInputDecoration(String hint) {
+    return InputDecoration(
+      hintText: hint,
+      hintStyle: const TextStyle(color: Colors.white70),
+      //Esta es la apariencia cuando no tocamos la caja
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20),
+        borderSide: const BorderSide(color: Colors.white70),
+      ),
+      //Esta es la apariencia cuando hacemos click en la caja
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(20),
+        borderSide: const BorderSide(color: Colors.white, width: 2), //Width lo have mas gruesa la letra
+      ),
+      filled: true, //Esto le dice a flutter que la caja puede tener un fondo
+      fillColor: Colors.transparent, //Aqui se controla el color del fondo
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,13 +79,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   //Circulo que mostrara el avatar elegido
                   Center(
                     child: CircleAvatar(
-                      radius: 50,
+                      radius: 70,
                       backgroundColor: Colors.white24,
-                      child: Icon(
-                        Icons.person, //Icono de usuario
-                        size: 60,
-                        color: Colors.white70,
-                      ),
+                      backgroundImage: avatar != null ? FileImage(avatar!) : null,
+                      child: avatar == null
+                        ? const Icon(Icons.person, size: 60, color: Colors.white70)
+                        : null
                     ),
                   ),
                 ],
@@ -56,12 +93,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
               //Boton para elegir el avatar
               Positioned(
-                right:
-                    MediaQuery.of(context).size.width *
-                    0.35, //Se mueve para el centro
+                right: MediaQuery.of(context).size.width * 0.35,
                 top: 70,
                 child: Container(
-                  decoration: BoxDecoration(
+                  decoration: const BoxDecoration(
                     color: Colors.blueAccent,
                     shape: BoxShape.circle,
                   ),
@@ -69,92 +104,92 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     icon: const Icon(
                       Icons.camera_alt_outlined,
                       color: Colors.white,
-                      size: 20,
+                      size: 25,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (modalContext) => Wrap(
+                          children: [
+                            ListTile(
+                              leading: const Icon(Icons.photo),
+                              title: const Text("Galería"),
+                              onTap: () {
+                                Navigator.pop(modalContext);
+                                pickImage(ImageSource.gallery);
+                              },
+                            ),
+                            ListTile(
+                              leading: const Icon(Icons.camera_alt),
+                              title: const Text("Cámara"),
+                              onTap: () {
+                                Navigator.pop(modalContext);
+                                pickImage(ImageSource.camera);
+                              },
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   ),
                 ),
               ),
               const SizedBox(height: 20),
-
-              //Campo para el nombre
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 30,
-                ), //Con EdgeInsets.symmetric(horizontal: 30) le decimos que nos de 30 de espacio de lado derecho e izquierdo
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Nombre completo",
-                    hintStyle: TextStyle(color: Colors.white70),
-                    enabledBorder: OutlineInputBorder(
-                      //Esta es la apariencia cuando no tocamos la caja
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: Colors.white70),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      //Esta es la apariencia cuando tocamos la caja
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(
-                        color: Colors.white,
-                        width: 2, //Width lo have mas gruesa la letra
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: [
+                    //Campo para el nombre
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 30,
+                      ), //Con EdgeInsets.symmetric(horizontal: 30) le decimos que nos de 30 de espacio de lado derecho e izquierdo
+                      child: TextFormField(
+                        decoration: buildInputDecoration("Nombre completo"),
+                        style: TextStyle(
+                          color: Colors
+                              .white, //Le damos color a las letras que estan en la caja
+                        ),
+                        validator: (value) {
+                          if(value ==  null || value.isEmpty){
+                            return "El nombre no puede estar vacio";
+                          }
+                          return null;
+                        },
                       ),
                     ),
-                    filled:
-                        true, //Esto le dice a flutter que la caja puede tener un fondo
-                    fillColor: Colors
-                        .transparent, //Aqui se controla el color del fondo
-                  ),
-                  style: TextStyle(
-                    color: Colors
-                        .white, //Le damos color a las letras que estan en la caja
-                  ),
-                ),
-              ),
-              const SizedBox(height: 15),
+                    const SizedBox(height: 15),
 
-              //Campo para la contraseña
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: TextField(
-                  obscureText: true, //Ocultamos la contraseña
-                  decoration: InputDecoration(
-                    hintText: "Contraseña",
-                    hintStyle: TextStyle(color: Colors.white70),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: Colors.white70),
+                    //Campo para la contraseña
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: TextFormField(
+                        obscureText: true, //Ocultamos la contraseña
+                        decoration: buildInputDecoration("Contraseña"),
+                        style: TextStyle(color: Colors.white),
+                        validator: (value) {
+                          if(value == null || value.isEmpty){
+                            return "La contraseña no puede estar vacia";
+                          }
+                          if (value.length < 6){
+                            return "La contraseña debe tener minimo 6 caracteres";
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: Colors.white, width: 2),
-                    ),
-                    filled: true,
-                    fillColor: Colors.transparent,
-                  ),
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              const SizedBox(height: 15),
+                    const SizedBox(height: 15),
 
-              //Campo para el correo
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 30),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: "Correo",
-                    hintStyle: TextStyle(color: Colors.white70),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: Colors.white70),
+                    //Campo para el correo
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 30),
+                      child: TextFormField(
+                        decoration: buildInputDecoration("Correo"),
+                        style: TextStyle(color: Colors.white),
+                        
+                      ),
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide(color: Colors.white, width: 2),
-                    ),
-                    filled: true,
-                    fillColor: Colors.transparent,
-                  ),
-                  style: TextStyle(color: Colors.white),
+                  ],
                 ),
               ),
               const SizedBox(height: 30),
