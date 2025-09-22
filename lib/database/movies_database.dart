@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:path_provider/path_provider.dart';
+import 'package:pmsn20252/models/movie_dao.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
@@ -48,5 +49,10 @@ class MoviesDatabase {
     var con =await database;
     return con!.delete(table, where: 'idMovie = ?', whereArgs: [id]); //el whereArgs es para pasarle el valor del idMovie que queremos eliminar
   }
-  SELECT(){}
+  
+  Future<List<MovieDao>>SELECT() async {
+    var con = await database;
+    final res = await con!.query("tblMovies",); //Hay que asegurarnos de colocar el await para obtener toda la gama de herramientas y lo ponemos porque el query es un Future
+    return res.map((movie) =>  MovieDao.fromMap(movie),).toList();  //Con el mapa nos ahorramos los ciclos para recorrer los campos de la tabla
+  }
 }

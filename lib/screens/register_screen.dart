@@ -213,7 +213,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     isValidating = true;
                   });
                   Future.delayed(
-                    const Duration(milliseconds: 1000),
+                    const Duration(milliseconds: 500),
                   ).then((value) => Navigator.pushNamed(context, "/login"));
                 },
                 child: const Text(
@@ -229,7 +229,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     isValidating = true;
                   });
                   Future.delayed(
-                    const Duration(milliseconds: 1000),
+                    const Duration(milliseconds: 500),
                   ).then((value) => Navigator.pushNamed(context, "/login"));
                 },
                 child: const Text(

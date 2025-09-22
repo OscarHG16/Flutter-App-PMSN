@@ -19,7 +19,7 @@ final List<Player> players = [
       velocidad: 93,
       disparo: 86,
       pase: 88,
-      description: "Joven promesa de La Masia, Yamal es un extremo derecho explosivo, con gran técnica, velocidad y desborde. A sus 18 años, ya es titular habitual y una de las mayores esperanzas del Barça, destacando por su descaro y talento en el uno contra uno."
+      description: "Joven promesa de La Masia, Yamal es un extremo derecho explosivo, con gran técnica, velocidad y desborde. A sus 18 años, ya es titular habitual y una de las mayores esperanzas del Barça, destacando por su regate y talento en el uno contra uno."
     ),
     Player(
       name: "Robert Lewandowski",

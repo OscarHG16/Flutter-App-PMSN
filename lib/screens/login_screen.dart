@@ -84,11 +84,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           vertical: 13,
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
                           isValidating = true;
                         });
-                        Future.delayed(const Duration(milliseconds: 2000)).then(
+                        await Future.delayed(const Duration(milliseconds: 1000)).then(
                           (value) => Navigator.pushNamed(context, "/home"),
                         );
                       },
@@ -117,11 +117,11 @@ class _LoginScreenState extends State<LoginScreen> {
                           vertical: 13,
                         ),
                       ),
-                      onPressed: () {
+                      onPressed: () async {
                         setState(() {
                           isValidating = true;
                         });
-                        Future.delayed(const Duration(milliseconds: 2000)).then(
+                        await Future.delayed(const Duration(milliseconds: 1000)).then(
                           (value) => Navigator.pushNamed(context, "/register"),
                         );
                       },

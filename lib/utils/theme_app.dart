@@ -34,10 +34,10 @@ class ThemeApp {
         error: Colors.red[700]!,
         onError: Colors.grey[100]!, // Cambio de blanco a gris muy claro
         surface: Colors.grey[50]!, // Cambio de blanco a gris casi blanco
-        onSurface: Colors.grey[850]!, // Cambio de black87 a gris muy oscuro
+        onSurface: const Color.fromARGB(255, 255, 255, 255), // Cambio de black87 a gris muy oscuro
       ),
       appBarTheme: const AppBarTheme(
-        backgroundColor: Colors.blue,
+        backgroundColor: Color.fromARGB(255, 15, 30, 85),
         elevation: 0
       ),
       scaffoldBackgroundColor: Colors.grey[100]
