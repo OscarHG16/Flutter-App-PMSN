@@ -186,7 +186,18 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       child: TextFormField(
                         decoration: buildInputDecoration("Correo"),
                         style: TextStyle(color: Colors.white),
-                        
+                        validator: (value){
+                          if(value ==  null || value.isEmpty){
+                            return "El correo no puede estar vacio";
+                          }
+                          //Expresion regular para la validacion de correcto formato del correo
+                          String pattern = r'^[^@]+@[^@]+\.[^@]+$';
+                          RegExp regex = RegExp(pattern);
+                          if(!regex.hasMatch(value)){
+                            return "Introduce un correo valido";
+                          }
+                          return null;
+                        }
                       ),
                     ),
                   ],
@@ -209,12 +220,9 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 onPressed: () {
-                  setState(() {
-                    isValidating = true;
-                  });
-                  Future.delayed(
-                    const Duration(milliseconds: 500),
-                  ).then((value) => Navigator.pushNamed(context, "/login"));
+                  if(_formKey.currentState!.validate()){ //Validamos que los campos sean correctos si no, no nos deja registrarnos
+                    Navigator.pushNamed(context, "/login");
+                  }
                 },
                 child: const Text(
                   "Registrarse",
