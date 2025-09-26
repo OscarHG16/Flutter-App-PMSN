@@ -75,7 +75,7 @@ class ScreenFigma1 extends StatelessWidget {
                             ), 
                           ),
                           onPressed: () {
-                            Navigator.pushNamed(context, "");
+                            Navigator.pushNamed(context, "/figma2");
                           },
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.center,
