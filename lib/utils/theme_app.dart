@@ -27,7 +27,7 @@ class ThemeApp {
   static ThemeData lightTheme(){
     return ThemeData.light().copyWith(
       colorScheme: ColorScheme.light(
-        primary: Colors.blue[600]!,
+        primary: const Color.fromARGB(255, 255, 255, 255),
         onPrimary: Colors.grey[100]!, // Cambio de blanco a gris muy claro
         secondary: Colors.teal[500]!,
         onSecondary: Colors.grey[200]!, // Cambio de blanco a gris muy claro

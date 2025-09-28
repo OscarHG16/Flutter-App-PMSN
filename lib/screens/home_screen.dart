@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
+import 'package:material_symbols_icons/material_symbols_icons.dart';
 import 'package:pmsn20252/utils/value_listener.dart';
 
 
@@ -37,18 +38,25 @@ class _HomeScreenState extends State<HomeScreen> {
             child: ListView(
               children: [
                 UserAccountsDrawerHeader(
-                  accountName : Text("Oscar Hurtado González"), 
-                  accountEmail : Text("21030090@gmail.com"),
+                  accountName : Text("Oscar Hurtado González", style: TextStyle(color: Colors.black),), 
+                  accountEmail : Text("21030090@gmail.com", style: TextStyle(color: Colors.black)),
                   currentAccountPicture: CircleAvatar(
-                    backgroundImage: NetworkImage("https://upload.wikimedia.org/wikipedia/commons/b/b4/Lionel-Messi-Argentina-2022-FIFA-World-Cup_%28cropped%29.jpg"),
+                    backgroundImage: NetworkImage("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSr_cYTLuRbjx4b7mUHkY4QYqxi3WqJ6C-9Aw&s"),
                   ),
                   ),
                 ListTile(
-                  leading: Icon(Icons.social_distance_rounded),
-                  title: Text("List Movies"),
-                  subtitle: Text("Databse Movies"),
-                  trailing: Icon(Icons.chevron_right),
+                  leading: Icon(Icons.social_distance_rounded, color: Colors.black,),
+                  title: Text("List Movies", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),),
+                  subtitle: Text("Databse Movies", style: TextStyle(fontSize: 20,  color: Colors.black)),
+                  trailing: Icon(Icons.chevron_right, color: Colors.black),
                   onTap: () => Navigator.pushNamed(context, "/listdb"),
+                ),
+                ListTile(
+                  leading: Icon(Symbols.travel_luggage_and_bags, color: Colors.black,),
+                  title: Text("Travels", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),),
+                  subtitle: Text("Database Travels", style: TextStyle(fontSize: 20,  color: Colors.black)),
+                  trailing: Icon(Icons.chevron_right, color: Colors.black),
+                  onTap: () => Navigator.pushNamed(context, "/figma1"),
                 ),
               ],
             ),

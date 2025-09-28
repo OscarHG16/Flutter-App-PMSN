@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget { // Cambiado a StatelessWidget
       valueListenable: ValueListener.isDark,
       builder: (context, value, _) { //Se agrega el _ para indicar que no se usa
         return MaterialApp(
-          theme: value ? ThemeApp.darkTheme() : ThemeApp.lightTheme(), // Aquí aplicamos el tema según el valor de isDark es un if pero con operadores ternarios, en caso de tener mas temas podremos usar switch
+          theme: value ? ThemeApp.lightTheme() : ThemeApp.darkTheme(), // Aquí aplicamos el tema según el valor de isDark es un if pero con operadores ternarios, en caso de tener mas temas podremos usar switch
           routes: {
             "/login": (context) => LoginScreen(),
             "/home": (context) => HomeScreen(), // Ruta para HomeScreen

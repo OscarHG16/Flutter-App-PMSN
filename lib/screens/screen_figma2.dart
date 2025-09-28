@@ -1,8 +1,9 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:pmsn20252/data/trip_data.dart';
+import 'package:pmsn20252/screens/trip_detail_screen.dart';
 import 'package:pmsn20252/widgets/serviceCard_widget.dart';
-import 'package:pmsn20252/widgets/trip_card.dart';
+import 'package:pmsn20252/widgets/trip_card_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:material_symbols_icons/symbols.dart';
 
@@ -122,6 +123,9 @@ class _nameState extends State<ScreenFigma2> {
                     duration: trip.duration,
                     rating: trip.rating,
                     title: trip.title,
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (_) => TripDetailScreen(trip: trip)));
+                    },
                   ),
                 );
               },
@@ -133,7 +137,7 @@ class _nameState extends State<ScreenFigma2> {
         currentIndex: 0,
         onTap: (_) {},
         items: const [
-          BottomNavigationBarItem(icon: Icon(Symbols.home), label: ""),
+          BottomNavigationBarItem(icon: Icon(Symbols.home, color: Colors.black,), label: "",),
           BottomNavigationBarItem(icon: Icon(Symbols.luggage), label: ""),
           BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ""),
         ],
