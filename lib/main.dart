@@ -4,15 +4,16 @@ import 'package:pmsn20252/screens/list_movies.dart';
 import 'package:pmsn20252/screens/login_screen.dart';
 import 'package:pmsn20252/screens/player_details_screen.dart';
 import 'package:pmsn20252/screens/players_screen.dart';
+import 'package:pmsn20252/screens/playstation_store_screen.dart';
 import 'package:pmsn20252/screens/register_screen.dart';
 import 'package:pmsn20252/screens/screen_figma1.dart';
 import 'package:pmsn20252/screens/screen_figma2.dart';
 import 'package:pmsn20252/utils/theme_app.dart';
-import 'package:pmsn20252/utils/value_listener.dart'; // Agregar esta importación
+import 'package:pmsn20252/utils/value_listener.dart'; 
 
 void main() => runApp(MyApp());
 
-class MyApp extends StatelessWidget { // Cambiado a StatelessWidget
+class MyApp extends StatelessWidget { 
   const MyApp({super.key});
 
   @override
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget { // Cambiado a StatelessWidget
             "/figma1": (context) => ScreenFigma1(),
             "/figma2": (context) => ScreenFigma2(),
             "/listdb": (context) => ListMovies(),
+            "/ps_store": (context) => PlaystationStoreScreen()
           },
           debugShowCheckedModeBanner: false,
           title: "Material App",

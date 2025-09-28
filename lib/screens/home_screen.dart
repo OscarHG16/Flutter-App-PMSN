@@ -45,7 +45,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                   ),
                 ListTile(
-                  leading: Icon(Icons.social_distance_rounded, color: Colors.black,),
+                  leading: Icon(Icons.movie, color: Colors.black,),
                   title: Text("List Movies", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),),
                   subtitle: Text("Databse Movies", style: TextStyle(fontSize: 20,  color: Colors.black)),
                   trailing: Icon(Icons.chevron_right, color: Colors.black),
@@ -57,6 +57,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   subtitle: Text("Database Travels", style: TextStyle(fontSize: 20,  color: Colors.black)),
                   trailing: Icon(Icons.chevron_right, color: Colors.black),
                   onTap: () => Navigator.pushNamed(context, "/figma1"),
+                ),
+                ListTile(
+                  leading: Icon(Symbols.sports_esports, color: Colors.black,),
+                  title: Text("PS5", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),),
+                  subtitle: Text("PlayStation Store", style: TextStyle(fontSize: 20,  color: Colors.black)),
+                  trailing: Icon(Icons.chevron_right, color: Colors.black),
+                  onTap: () => Navigator.pushNamed(context, "/ps_store"),
                 ),
               ],
             ),
