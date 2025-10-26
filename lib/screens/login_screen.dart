@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:pmsn20252/firebase/fire_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -12,6 +13,13 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController conUser = TextEditingController();
   TextEditingController conPwd = TextEditingController();
   bool isValidating = false;
+  FireAuth? fireAuth;
+
+  @override
+  void initState() {
+    super.initState();
+    fireAuth = FireAuth();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -85,12 +93,45 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                       ),
                       onPressed: () async {
+                        if(conUser.text.isEmpty || conPwd.text.isEmpty){ //Se revisa si los campos estan vacios 
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(content: Text("Favor de llenar ambos campos"),
+                            backgroundColor: Colors.orange,
+                            )
+                          );
+                          return;
+                        }
                         setState(() {
                           isValidating = true;
                         });
-                        await Future.delayed(const Duration(milliseconds: 1000)).then(
-                          (value) => Navigator.pushNamed(context, "/home"),
-                        );
+                        //Colocaremos todos los casos de uso que se puedan presnetar
+                        try{
+                          //Caso 1 es que intentamos iniciar sesion 
+                          final user = await fireAuth!.signInWithEmailAndPassword(
+                            conUser.text,
+                            conPwd.text
+                            );
+
+                            if(user != null){
+                              Navigator.pushNamedAndRemoveUntil(context, "/home", (route) => false);
+                            }else{
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(content: Text("Correo o contraseña incorrectos"),
+                                backgroundColor: Colors.red,
+                              )
+                              );
+                            }
+                        }catch(e){
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text("Erro ${e.toString()}"),
+                            backgroundColor: Colors.red,
+                            )
+                          );
+                        }finally{
+                          setState(() {
+                            isValidating = false;
+                          });
+                        }
                       },
                       child: const Text(
                         "Iniciar Sesión",

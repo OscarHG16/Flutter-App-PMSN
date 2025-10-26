@@ -65,6 +65,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   trailing: Icon(Icons.chevron_right, color: Colors.black),
                   onTap: () => Navigator.pushNamed(context, "/ps_store"),
                 ),
+                ListTile(
+                  leading: Icon(Symbols.movie, color: Colors.black,),
+                  title: Text("List Api Movies", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),),
+                  subtitle: Text("API", style: TextStyle(fontSize: 20,  color: Colors.black)),
+                  trailing: Icon(Icons.chevron_right, color: Colors.black),
+                  onTap: () => Navigator.pushNamed(context, "/api"),
+                ),
               ],
             ),
           ),

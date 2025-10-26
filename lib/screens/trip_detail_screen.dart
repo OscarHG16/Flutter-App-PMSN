@@ -314,10 +314,28 @@ class _TripDetailScreenState extends State<TripDetailScreen> {
                 borderRadius: BorderRadius.circular(30),
               ),
               child: TextButton(
-                onPressed: () {},
-                child: Text(
-                  "BOOK THIS ITENARY",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                onPressed: () {
+                  Navigator.pushNamed(
+                    context,
+                    '/add_booking',
+                    arguments: widget.trip.id,
+                  ).then((_) {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('Check your bookings in the Calendar!'),
+                        backgroundColor: Colors.green,
+                        duration: Duration(seconds: 2),
+                      ),
+                    );
+                  });
+                },
+                child: const Text(
+                  "BOOK THIS ITINERARY",
+                  style: TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ),

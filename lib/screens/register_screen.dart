@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:pmsn20252/firebase/fire_auth.dart';
 
 class RegisterScreen extends StatefulWidget {
   const RegisterScreen({super.key});
@@ -18,6 +19,25 @@ class _RegisterScreenState extends State<RegisterScreen> {
   File? avatar; // Para guardar la imagen seleccionada
   final ImagePicker picker = ImagePicker();
 
+  FireAuth? fireAuth;
+
+  void initState() {
+    super.initState();
+    fireAuth = FireAuth();
+  }
+
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    _nameController.dispose();
+    super.dispose();
+  }
+
   //METODOS
   Future<void> pickImage(ImageSource source) async {
     final XFile? pickedFile = await picker.pickImage(source: source);
@@ -27,7 +47,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
       });
     }
   }
-
 
   //Funcion para el estilo de los campos y no estar repitiendo en cada uno el mismo estilo solo lo mandamos a llamar y le pasamos el parametro del texto que queremos que se visualize
   InputDecoration buildInputDecoration(String hint) {
@@ -42,7 +61,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
       //Esta es la apariencia cuando hacemos click en la caja
       focusedBorder: OutlineInputBorder(
         borderRadius: BorderRadius.circular(20),
-        borderSide: const BorderSide(color: Colors.white, width: 2), //Width lo have mas gruesa la letra
+        borderSide: const BorderSide(
+          color: Colors.white,
+          width: 2,
+        ), //Width lo have mas gruesa la letra
       ),
       filled: true, //Esto le dice a flutter que la caja puede tener un fondo
       fillColor: Colors.transparent, //Aqui se controla el color del fondo
@@ -52,10 +74,12 @@ class _RegisterScreenState extends State<RegisterScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true, //Al sacar el teclado podemos hacer scroll para visualizar toda la pantalla
+      resizeToAvoidBottomInset:
+          true, //Al sacar el teclado podemos hacer scroll para visualizar toda la pantalla
       backgroundColor: barcaBlue,
       body: SafeArea(
-        child: SingleChildScrollView( //Sirve para dar scroll al sacar el teclado y visualizemos todo el contenido
+        child: SingleChildScrollView(
+          //Sirve para dar scroll al sacar el teclado y visualizemos todo el contenido
           child: Column(
             children: [
               const SizedBox(height: 40),
@@ -81,10 +105,16 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     child: CircleAvatar(
                       radius: 70,
                       backgroundColor: Colors.white24,
-                      backgroundImage: avatar != null ? FileImage(avatar!) : null,
+                      backgroundImage: avatar != null
+                          ? FileImage(avatar!)
+                          : null,
                       child: avatar == null
-                        ? const Icon(Icons.person, size: 60, color: Colors.white70)
-                        : null
+                          ? const Icon(
+                              Icons.person,
+                              size: 60,
+                              color: Colors.white70,
+                            )
+                          : null,
                     ),
                   ),
                 ],
@@ -145,13 +175,14 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         horizontal: 30,
                       ), //Con EdgeInsets.symmetric(horizontal: 30) le decimos que nos de 30 de espacio de lado derecho e izquierdo
                       child: TextFormField(
+                        controller: _nameController,
                         decoration: buildInputDecoration("Nombre completo"),
                         style: TextStyle(
                           color: Colors
                               .white, //Le damos color a las letras que estan en la caja
                         ),
                         validator: (value) {
-                          if(value ==  null || value.isEmpty){
+                          if (value == null || value.isEmpty) {
                             return "El nombre no puede estar vacio";
                           }
                           return null;
@@ -164,14 +195,15 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: TextFormField(
+                        controller: _passwordController,
                         obscureText: true, //Ocultamos la contraseña
                         decoration: buildInputDecoration("Contraseña"),
                         style: TextStyle(color: Colors.white),
                         validator: (value) {
-                          if(value == null || value.isEmpty){
+                          if (value == null || value.isEmpty) {
                             return "La contraseña no puede estar vacia";
                           }
-                          if (value.length < 6){
+                          if (value.length < 6) {
                             return "La contraseña debe tener minimo 6 caracteres";
                           }
                           return null;
@@ -184,20 +216,21 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 30),
                       child: TextFormField(
+                        controller: _emailController,
                         decoration: buildInputDecoration("Correo"),
                         style: TextStyle(color: Colors.white),
-                        validator: (value){
-                          if(value ==  null || value.isEmpty){
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
                             return "El correo no puede estar vacio";
                           }
                           //Expresion regular para la validacion de correcto formato del correo
                           String pattern = r'^[^@]+@[^@]+\.[^@]+$';
                           RegExp regex = RegExp(pattern);
-                          if(!regex.hasMatch(value)){
+                          if (!regex.hasMatch(value)) {
                             return "Introduce un correo valido";
                           }
                           return null;
-                        }
+                        },
                       ),
                     ),
                   ],
@@ -210,41 +243,68 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   foregroundColor: Colors.white,
                   backgroundColor: const Color.fromARGB(255, 158, 27, 27),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(
-                      30,
-                    ), // Bordes redondeados
+                    borderRadius: BorderRadius.circular(30),
                   ),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: InspectorButton.buttonSize,
+                    horizontal: 50, // Corregido el valor de buttonSize
                     vertical: 13,
                   ),
                 ),
-                onPressed: () {
-                  if(_formKey.currentState!.validate()){ //Validamos que los campos sean correctos si no, no nos deja registrarnos
-                    Navigator.pushNamed(context, "/login");
+                onPressed: () async {
+                  if (_formKey.currentState!.validate()) {
+                    setState(() {
+                      isValidating = true;
+                    });
+
+                    try {
+                      final user = await fireAuth?.registerWithEmailAndPassword(
+                        _emailController.text,
+                        _passwordController.text,
+                      );
+
+                      if (user != null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Registro exitoso! Por favor verifica tu email',
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
+                        Navigator.pushNamed(context, "/login");
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Error al registrar usuario'),
+                            backgroundColor: Colors.red,
+                          ),
+                        );
+                      }
+                    } catch (e) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(
+                          content: Text('Error: ${e.toString()}'),
+                          backgroundColor: Colors.red,
+                        ),
+                      );
+                    } finally {
+                      setState(() {
+                        isValidating = false;
+                      });
+                    }
                   }
                 },
-                child: const Text(
-                  "Registrarse",
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                ),
+                child: isValidating
+                    ? const CircularProgressIndicator(color: Colors.white)
+                    : const Text(
+                        "Registrarse",
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
               ),
               const SizedBox(height: 5),
-
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    isValidating = true;
-                  });
-                  Future.delayed(
-                    const Duration(milliseconds: 500),
-                  ).then((value) => Navigator.pushNamed(context, "/login"));
-                },
-                child: const Text(
-                  "¿Ya tienes cuenta? Inicia sesión",
-                  style: TextStyle(color: Colors.white, fontSize: 15),
-                ),
-              ),
             ],
           ),
         ),
