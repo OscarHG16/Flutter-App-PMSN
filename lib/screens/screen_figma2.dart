@@ -224,9 +224,9 @@ class _ScreenFigma2State extends State<ScreenFigma2> {
           Navigator.pushNamed(context, '/manage_trips');
         },
         backgroundColor: const Color(0xFF2563EB),
-        icon: const Icon(Icons.admin_panel_settings, color: Colors.white),
+        icon: const Icon(Icons.card_travel, color: Colors.white),
         label: const Text(
-          'Manage',
+          'Trips',
           style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
       ),

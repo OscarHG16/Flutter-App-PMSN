@@ -232,7 +232,7 @@ class DatabaseHelper {
       
       print('Datos iniciales insertados correctamente');
     } else {
-      print('ℹYa existen datos en la BD');
+      print('Ya existen datos en la BD');
     }
   }
 }
